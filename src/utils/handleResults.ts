@@ -52,7 +52,7 @@ export async function getAutoSearchResults(searchText: string, signal: any): Pro
   }
 
   const buffer = await response.arrayBuffer();
-  const text = iconv.decode(Buffer.from(buffer), "iso-8859-1");
+  const text = iconv.decode(Buffer.from(buffer), "utf-8");
   const json = JSON.parse(text);
 
   const results: SearchResult[] = [];
