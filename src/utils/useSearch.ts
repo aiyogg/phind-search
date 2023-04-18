@@ -1,4 +1,5 @@
 import { getPreferenceValues, LocalStorage, showToast, Toast } from "@raycast/api";
+import { useCachedState } from "@raycast/utils";
 import { AbortError } from "node-fetch";
 import { useState, useRef, useEffect } from "react";
 import { getAutoSearchResults, getSearchHistory, getStaticResult } from "./handleResults";
@@ -13,6 +14,7 @@ export function useSearch() {
   const [autoResults, setAutoResults] = useState<SearchResult[]>([]);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [searchText, setSearchText] = useState("");
+  const [contextText] = useCachedState('context-text', "");
   const cancelRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -25,8 +27,11 @@ export function useSearch() {
 
   // Static result and filter history
   useEffect(() => {
-    setStaticResults(getStaticResult(searchText));
-  }, [searchText]);
+    (async () => {
+      const result = await getStaticResult(searchText, contextText);
+      setStaticResults(result);
+    })();
+  }, [searchText, contextText]);
 
   // Static result and filter history
   useEffect(() => {
@@ -44,7 +49,7 @@ export function useSearch() {
         setIsLoading(true);
 
         if (searchText) {
-          const autoSearchResult = await getAutoSearchResults(searchText, cancelRef.current.signal);
+          const autoSearchResult = await getAutoSearchResults(searchText, contextText, cancelRef.current.signal);
           setAutoResults(autoSearchResult);
         } else {
           setAutoResults([]);

@@ -11,3 +11,8 @@ export interface SearchResult {
 export interface Preferences {
   rememberSearchHistory: boolean;
 }
+
+export interface  ContextFields {
+  context: string;
+  remember: boolean;
+}

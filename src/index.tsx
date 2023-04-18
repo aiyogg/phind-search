@@ -1,9 +1,11 @@
-import { ActionPanel, closeMainWindow, Action, Icon, List, open } from "@raycast/api";
+import { ActionPanel, closeMainWindow, Action, Icon, List, open, useNavigation } from "@raycast/api";
 import { getIcon } from "./utils/resultUtils";
 import { useSearch } from "./utils/useSearch";
+import Context from "./context";
 
 export default function Command() {
   const { isLoading, results, search, addHistory, deleteAllHistory, deleteHistoryItem } = useSearch();
+  const { push } = useNavigation();
 
   return (
     <List isLoading={isLoading} onSearchTextChange={search} searchBarPlaceholder="Search Phind or enter a URL...">
@@ -27,8 +29,23 @@ export default function Command() {
                     icon={{ source: Icon.ArrowRight }}
                   />
 
-                  <Action.CopyToClipboard title="Copy URL to Clipboard" content={item.url} />
+                  <Action.CopyToClipboard
+                    title="Copy URL to Clipboard"
+                    content={item.url}
+                    shortcut={{ modifiers: ["cmd"], key: "c" }}
+                  />
                   <Action.CopyToClipboard title="Copy Suggestion to Clipboard" content={item.query} />
+                </ActionPanel.Section>
+
+                <ActionPanel.Section title="Context">
+                  <Action
+                    title="Add any extra code or context"
+                    onAction={async () => {
+                      push(<Context />);
+                    }}
+                    icon={{ source: Icon.CodeBlock }}
+                    shortcut={{ modifiers: ["cmd"], key: "e" }}
+                  />
                 </ActionPanel.Section>
 
                 <ActionPanel.Section title="History">

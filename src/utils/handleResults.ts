@@ -21,7 +21,7 @@ export async function getSearchHistory(): Promise<SearchResult[]> {
   return items;
 }
 
-export function getStaticResult(searchText: string): SearchResult[] {
+export async function getStaticResult(searchText: string, contextText: string): Promise<SearchResult[]> {
   if (!searchText) {
     return [];
   }
@@ -31,14 +31,18 @@ export function getStaticResult(searchText: string): SearchResult[] {
       id: nanoid(),
       query: searchText,
       description: `Search Phind for '${searchText}'`,
-      url: `https://phind.com/search?q=${encodeURIComponent(searchText)}`,
+      url: `https://phind.com/search?q=${encodeURIComponent(searchText)}&c=${encodeURIComponent(contextText ?? "")}`,
     },
   ];
 
   return result;
 }
 
-export async function getAutoSearchResults(searchText: string, signal: any): Promise<SearchResult[]> {
+export async function getAutoSearchResults(
+  searchText: string,
+  contextText: string,
+  signal: any
+): Promise<SearchResult[]> {
   const response = await fetch(`https://www.phind.com/api/bing/suggestions?q=${encodeURIComponent(searchText)}`, {
     method: "get",
     signal: signal,
@@ -62,7 +66,7 @@ export async function getAutoSearchResults(searchText: string, signal: any): Pro
       id: nanoid(),
       query: item,
       description: `Search Phind for '${item}'`,
-      url: `https://phind.com/search?q=${encodeURIComponent(item)}`,
+      url: `https://phind.com/search?q=${encodeURIComponent(item)}&c=${encodeURIComponent(contextText ?? "")}`,
     });
   });
 
