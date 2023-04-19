@@ -1,11 +1,10 @@
 import { Form, ActionPanel, Action, useNavigation } from "@raycast/api";
 import { useCachedState } from "@raycast/utils";
-import { useState } from "react";
 import { ContextFields } from "./utils/types";
 
 export default function Command() {
   const [_, setContextText] = useCachedState("context-text", "");
-  const [rememberContext, setRememberContext] = useState(true);
+  const [rememberContext, setRememberContext] = useCachedState('remember', true);
   const { pop } = useNavigation();
 
   return (
@@ -15,10 +14,9 @@ export default function Command() {
           <Action.SubmitForm
             onSubmit={async (values: ContextFields) => {
               console.log("onSubmit", values);
-              const { context, remember } = values;
+              const { context } = values;
               if (context) {
                 setContextText(context);
-                setRememberContext(remember);
               }
               pop();
             }}
@@ -33,7 +31,12 @@ export default function Command() {
         storeValue={rememberContext}
         placeholder="Put any extra code or context here."
       />
-      <Form.Checkbox id="remember" label="Remember this context?" defaultValue={rememberContext} />
+      <Form.Checkbox
+        id="remember"
+        label="Remember this context?"
+        onChange={setRememberContext}
+        value={rememberContext}
+      />
     </Form>
   );
 }
