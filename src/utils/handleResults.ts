@@ -21,7 +21,7 @@ export async function getSearchHistory(): Promise<SearchResult[]> {
   return items;
 }
 
-export async function getStaticResult(searchText: string, contextText: string): Promise<SearchResult[]> {
+export function getStaticResult(searchText: string, contextText: string): SearchResult[] {
   if (!searchText) {
     return [];
   }
@@ -41,7 +41,7 @@ export async function getStaticResult(searchText: string, contextText: string): 
 export async function getAutoSearchResults(
   searchText: string,
   contextText: string,
-  signal: any
+  signal: AbortSignal
 ): Promise<SearchResult[]> {
   const response = await fetch(`https://www.phind.com/api/bing/suggestions?q=${encodeURIComponent(searchText)}`, {
     method: "get",

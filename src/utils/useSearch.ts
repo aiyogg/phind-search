@@ -14,7 +14,7 @@ export function useSearch() {
   const [autoResults, setAutoResults] = useState<SearchResult[]>([]);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [contextText] = useCachedState('context-text', "");
+  const [contextText] = useCachedState("context-text", "");
   const cancelRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -27,10 +27,7 @@ export function useSearch() {
 
   // Static result and filter history
   useEffect(() => {
-    (async () => {
-      const result = await getStaticResult(searchText, contextText);
-      setStaticResults(result);
-    })();
+    setStaticResults(getStaticResult(searchText, contextText));
   }, [searchText, contextText]);
 
   // Static result and filter history
