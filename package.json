@@ -22,6 +22,14 @@
       "default": true,
       "label": "Remember Search History",
       "description": "Enable this checkbox to locally store Phind search history."
+    },
+    {
+      "name": "autoSuggestions",
+      "type": "checkbox",
+      "required": false,
+      "default": false,
+      "label": "Auto Suggestions for Search",
+      "description": "Enable this checkbox to show auto suggestions when typing. (The Phind team has currently disabled the API.)"
     }
   ],
   "dependencies": {
@@ -49,5 +57,5 @@
     "publish": "ray publish",
     "pull": "ray pull-contributions"
   },
-  "version": "1.1.1"
+  "version": "1.1.2"
 }
