@@ -10,6 +10,7 @@ export interface SearchResult {
 
 export interface Preferences {
   rememberSearchHistory: boolean;
+  autoSuggestions: boolean;
 }
 
 export interface  ContextFields {

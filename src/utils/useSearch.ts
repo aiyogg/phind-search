@@ -1,12 +1,12 @@
 import { getPreferenceValues, LocalStorage, showToast, Toast } from "@raycast/api";
 import { useCachedState } from "@raycast/utils";
 import { AbortError } from "node-fetch";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAutoSearchResults, getSearchHistory, getStaticResult } from "./handleResults";
-import { SearchResult, HISTORY_KEY, Preferences } from "./types";
+import { HISTORY_KEY, Preferences, SearchResult } from "./types";
 
 export function useSearch() {
-  const { rememberSearchHistory } = getPreferenceValues<Preferences>();
+  const { rememberSearchHistory, autoSuggestions } = getPreferenceValues<Preferences>();
   const [isLoading, setIsLoading] = useState(true);
   const [history, setHistory] = useState<SearchResult[]>([]);
   const [staticResults, setStaticResults] = useState<SearchResult[]>([]);
@@ -38,6 +38,11 @@ export function useSearch() {
 
   // Autosuggestions
   useEffect(() => {
+    if (!autoSuggestions) {
+      setAutoResults([]);
+      return;
+    }
+
     const fetchQuery = async () => {
       cancelRef.current?.abort();
       cancelRef.current = new AbortController();
