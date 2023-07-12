@@ -4,7 +4,7 @@ import { ContextFields } from "./utils/types";
 
 export default function Command() {
   const [_, setContextText] = useCachedState("context-text", "");
-  const [rememberContext, setRememberContext] = useCachedState('remember', true);
+  const [rememberContext, setRememberContext] = useCachedState("remember", true);
   const { pop } = useNavigation();
 
   return (
