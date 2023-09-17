@@ -38,16 +38,16 @@ export function getStaticResult(searchText: string, contextText: string): Search
   return result;
 }
 
-export async function getAutoSearchResults(
-  searchText: string,
-  contextText: string,
-  signal: AbortSignal
-): Promise<SearchResult[]> {
-  const response = await fetch(`https://www.phind.com/api/bing/suggestions?q=${encodeURIComponent(searchText)}`, {
+
+
+export async function getAutoSearchResults(  searchText: string,
+                                             contextText: string,
+                                             signal: AbortSignal): Promise<SearchResult[]> {
+  const response = await fetch(`https://www.bing.com/asjson.aspx?query=${encodeURIComponent(searchText)}`, {
     method: "get",
     signal: signal,
     headers: {
-      "Content-Type": "application/json; charset=UTF-8",
+      "Content-Type": "text/plain; charset=UTF-8",
     },
   });
 
@@ -61,7 +61,7 @@ export async function getAutoSearchResults(
 
   const results: SearchResult[] = [];
 
-  json.forEach((item: string) => {
+  json[1].map((item: string) => {
     results.push({
       id: nanoid(),
       query: item,
@@ -69,6 +69,7 @@ export async function getAutoSearchResults(
       url: `https://phind.com/search?q=${encodeURIComponent(item)}&c=${encodeURIComponent(contextText ?? "")}`,
     });
   });
+
 
   return results;
 }
