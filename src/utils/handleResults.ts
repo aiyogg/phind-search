@@ -43,6 +43,7 @@ export function getStaticResult(searchText: string, contextText: string): Search
 export async function getAutoSearchResults(  searchText: string,
                                              contextText: string,
                                              signal: AbortSignal): Promise<SearchResult[]> {
+  // use bing api to get auto suggestions
   const response = await fetch(`https://www.bing.com/asjson.aspx?query=${encodeURIComponent(searchText)}`, {
     method: "get",
     signal: signal,
