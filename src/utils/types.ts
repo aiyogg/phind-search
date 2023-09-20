@@ -13,7 +13,7 @@ export interface Preferences {
   autoSuggestions: boolean;
 }
 
-export interface  ContextFields {
+export interface ContextFields {
   context: string;
   remember: boolean;
 }

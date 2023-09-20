@@ -27,14 +27,14 @@
       "name": "autoSuggestions",
       "type": "checkbox",
       "required": false,
-      "default": false,
+      "default": true,
       "label": "Auto Suggestions for Search",
-      "description": "Enable this checkbox to show auto suggestions when typing. (The Phind team has currently disabled the API.)"
+      "description": "Enable this checkbox to show auto suggestions when typing. (The Phind team has currently disabled the API, use the Bing's auto-suggestions now.)"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.48.3",
-    "@raycast/utils": "^1.5.2",
+    "@raycast/api": "^1.58.1",
+    "@raycast/utils": "^1.10.0",
     "iconv-lite": "^0.6.3",
     "nanoid": "^4.0.1",
     "node-fetch": "^3.3.0"
