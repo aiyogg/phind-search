@@ -28,7 +28,7 @@
       "name": "autoSuggestions",
       "type": "checkbox",
       "required": false,
-      "default": false,
+      "default": true,
       "label": "Auto Suggestions for Search",
       "description": "Enable this checkbox to show auto suggestions when typing. (The Phind team has currently disabled the API.)"
     }
