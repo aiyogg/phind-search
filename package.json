@@ -5,7 +5,9 @@
   "description": "Search anything with Phind",
   "icon": "command-icon.png",
   "author": "Chuck",
-  "owner": "chuckchen",
+  "contributors": [
+    "pernielsentikaer"
+  ],
   "license": "MIT",
   "commands": [
     {
@@ -55,7 +57,8 @@
     "dev": "ray develop",
     "fix-lint": "ray lint --fix",
     "lint": "ray lint",
-    "publish": "ray publish"
+    "publish": "ray publish",
+    "pull": "ray pull-contributions"
   },
   "version": "1.1.2"
 }
